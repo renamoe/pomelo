@@ -6,6 +6,7 @@ Pomelo 是部署于 GitHub Pages 的静态前端 Web 3D 物理模拟网站。
 
 ## 文件结构
 
+- `.github/workflows/deploy.yml`：GitHub Pages 自动构建与部署。
 - `.gitignore`：Git 忽略规则。
 - `AGENTS.md`：项目定位、结构、索引与通用规范。
 - `index.html`：页面入口。
