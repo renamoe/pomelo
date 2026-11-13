@@ -1,6 +1,7 @@
 import GUI from 'lil-gui';
 import { PhysicsWorld } from './physics/PhysicsWorld';
 import { SceneRenderer } from './rendering/SceneRenderer';
+import { CUBE_COUNT } from './scene';
 import type { Pose } from './scene';
 import './style.css';
 
@@ -36,10 +37,10 @@ async function start(): Promise<void> {
   gui.add({ wireframe: false }, 'wireframe').name('线框').onChange((value: boolean) => {
     view.setWireframe(value);
   });
-  const pose: Pose = {
+  const poses: Pose[] = Array.from({ length: CUBE_COUNT }, () => ({
     position: { x: 0, y: 0, z: 0 },
     rotation: { x: 0, y: 0, z: 0, w: 1 },
-  };
+  }));
   let previous = performance.now();
   let accumulator = 0;
   const timestep = 1 / 60;
@@ -52,12 +53,12 @@ async function start(): Promise<void> {
       world.step();
       accumulator -= timestep;
     }
-    world.readPose(pose);
-    view.render(pose);
+    world.readPoses(poses);
+    view.render(poses);
     frame = requestAnimationFrame(animate);
   }
 
-  status.textContent = '零重力 · 静止展示';
+  status.textContent = '水平沙滩 · 100 个方块 · 随机自由落体';
   frame = requestAnimationFrame(animate);
 }
 
